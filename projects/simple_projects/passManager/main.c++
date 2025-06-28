@@ -11,6 +11,7 @@ class passManager{
         void addAcc();
         void viewAcc();
         void searchAcc();
+        void delAcc();
 
 
 }obj;
@@ -24,7 +25,8 @@ int main(){
     cout<<"1 - Add Account"<<endl;
     cout<<"2 - View Account"<<endl;
     cout<<"3 - Search Account"<<endl;
-    cout<<"4 - EXIT"<<endl;
+    cout<<"4 - Delete Account"<<endl;
+    cout<<"5 - EXIT"<<endl;
     cout<<"---------------------------\n";
     cin>>choice;
 
@@ -38,12 +40,19 @@ int main(){
      case '2':
         cin.ignore();
         obj.viewAcc();
+        break;
 
      case '3':
         cin.ignore();
         obj.searchAcc();
         break;
-    case '4':
+
+     case '4':
+        cin.ignore();
+        obj.delAcc();
+        break;
+
+    case '5':
             return 0;
             break;
         default:
@@ -122,6 +131,41 @@ void passManager :: searchAcc(){
         getline(file, password,'\n');
     }
     file.close();
+
+
+}
+
+
+
+void passManager :: delAcc()
+{
+
+    string delPlatform;
+    cout<<"Enter Platform to Delete:: ";
+    getline(cin, delPlatform);
+
+
+    ifstream inFile("passData.txt");
+    ofstream tempFile("temp.txt");
+    string platform, email, password;
+
+    while(getline(inFile, platform, '|') &&
+          getline(inFile, email, '|') &&
+          getline(inFile, password, '\n')){
+
+            if(platform != delPlatform){
+                tempFile << platform << '|' << email << '|' << password << '\n';
+            }
+
+          }
+
+          inFile.close();
+          tempFile.close();
+
+          remove("passData.txt");
+          rename("temp.txt", "passData.txt");
+
+          cout << "Account Deleted (if existed). "<< endl;
 
 
 }
