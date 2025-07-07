@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-
+    /*
     int rows;
     int columns;
     char symbols;
@@ -27,5 +27,16 @@ int main()
         cout << "\n";
     }
 
+    */
+
+    for(int i = 10; i >= 0; i-=3){
+        cout << i << '\n';
+    }
+    
+    cout << "HAPPY NEW YEAR!\n";
+
+
     return 0;
+   
+    
 }
