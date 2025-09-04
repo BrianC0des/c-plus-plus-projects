@@ -56,7 +56,7 @@ int main(){
     
     
     }
-    else if(total_amount >= 1000){
+    else{
         double discount_rate = 0.01;
         double total_discount = total_amount * discount_rate;
         double actual_payment = total_amount - total_discount;
