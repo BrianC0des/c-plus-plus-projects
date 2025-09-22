@@ -1,27 +1,39 @@
 #include <iostream>
 using namespace std;
 
-int main()
+
+
+
+double quizzes(int num_quizzes){
+    double score, total_scores = 0;
+    for(int i = 1; i <= num_quizzes; i++){
+        cout << "Enter Subject #"<< i <<": ";
+        cin >> score;
+        total_scores = total_scores + score;
+        
+    }
+    return total_scores;
+      
+}
+
+auto average_calc()
 {
-    double quiz1, quiz2, quiz3;
-    int num_of_students;
-    double total_scores;
-    int count = 1;
+    int num_quizzes, num_of_students;
+    int student_count = 1;
+    
     cout << "How many students? : ";
     cin >> num_of_students;
-    while (count <= num_of_students)
+    cout << "How many subjects? : ";
+    cin >> num_quizzes;
+    while (student_count <= num_of_students)
     {
-        cout << "Student #" << count << endl;
-        cout << "Quiz 1: ";
-        cin >> quiz1;
-        cout << "Quiz 2: ";
-        cin >> quiz2;
-        cout << "Quiz 3: ";
-        cin >> quiz3;
-        total_scores = quiz1 + quiz2 + quiz3;
-        double average_score = total_scores / 3;
+        cout << "Student #" << student_count <<endl;
+        double total = quizzes(num_quizzes);
+        cout <<"\n";
+        
+        double average_score = total / num_quizzes;
         cout << "AVERAGE: " << average_score << endl;
-
+        
         if (average_score >= 95)
         {
             cout << "REMARKS: EXCELLENT" << endl;
@@ -46,9 +58,35 @@ int main()
         {
             cout << "REMARKS: FAILED" << endl;
         }
-
-        count++;
+        cout <<"-------------------------------"<<"\n";
+        
+        student_count++;
+        
+    
     }
+
+}
+
+
+int main()
+{
+    string choice;
+    average_calc();
+
+    do{
+        cout << "Do you want to calculate again?: ";
+        cin >> choice;
+        if (choice == "yes" || choice == "y"){
+            average_calc();
+        }
+        else{
+            cout << "Program Ended" << endl;
+            break;
+        }
+
+    }while(choice == "yes" || choice == "y");
+
+
 
     return 0;
 }
