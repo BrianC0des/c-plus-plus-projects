@@ -4,6 +4,7 @@ using namespace std;
 
 int main() 
 {
+    
     vector<string> fruits = {"Banana","Apple","Strawberry","Kiwi","Pineapple"};
     fruits.push_back("Blueberry");    
     int len = fruits.size();

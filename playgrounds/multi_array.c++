@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    /*
+    
     int rows = sizeof(cars)/sizeof(cars[0]);
     int columns = sizeof(cars[0])/sizeof(cars[0][0]);
     string cars[][3] = {{"Mustang", "Escape", "F-150"},
@@ -18,7 +18,7 @@ int main()
         cout << cars[i][j] << " ";
     }
     cout << "\n";
-    */
+    
 
 
     return 0;
