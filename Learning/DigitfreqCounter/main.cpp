@@ -1,95 +1,46 @@
-#include <iostream>
+#include<iostream>
+
 using namespace std;
-
-
 int main(){
+	char choice;
+	do{
+		string num;
+		int num0 = 0,num1 = 0, num2 = 0, num3 = 0, num4 = 0, num5 = 0, num6 = 0, num7 = 0, num8 = 0, num9 = 0;
 
-    char choice;
-    
-    
-    do{
-        long long num;
-        int num0 = 0,num1 = 0,num2 = 0,num3 = 0,num4 = 0,num5 = 0,num6 = 0,num7 = 0,num8 = 0,num9 = 0;
-        int digit;
-        cout << "Digit Frequency Counter"<<endl;
-        cout << "Enter a number: ";
-        cin >> num;
-        
-        while(num > 0){
-            digit = num%10;
-            
-            if(digit == 0){
-                num0++;
-            }
-            else if(digit == 1){
-                num1++;
-            }
-            else if(digit == 2){
-                num2++;
-            }
-            else if(digit == 3){
-                num3++;
-            }
-            else if(digit == 4){
-                num4++;
-            }
-            else if(digit == 5){
-                num5++;
-            }
-            else if(digit == 6){
-                num6++;
-            }
-            else if(digit == 7){
-                num7++;
-            }
-            else if(digit == 8){
-                num8++;
-            }
-            else if(digit == 9){
-                num9++;
-            }
-         
-            num/=10;
+		cout << "Enter a number: ";
+		cin >> num;
 
-        
-        }
+		for(int i = 0; i < num.size(); i++){
+			if(num[i] == '0') num0++;
+			if(num[i] == '1') num1++;
+			if(num[i] == '2') num2++;
+			if(num[i] == '3') num3++;
+			if(num[i] == '4') num4++;
+			if(num[i] == '5') num5++;
+			if(num[i] == '6') num6++;
+			if(num[i] == '7') num7++;
+			if(num[i] == '8') num8++;
+			if(num[i] == '9') num9++;	
+		}
 
-        cout << "Digit 0: "<<num0<<" Times"<<endl;
-        cout << "Digit 1: "<<num1<<" Times"<<endl;
-        cout << "Digit 2: "<<num2<<" Times"<<endl;
-        cout << "Digit 3: "<<num3<<" Times"<<endl;
-        cout << "Digit 4: "<<num4<<" Times"<<endl;
-        cout << "Digit 5: "<<num5<<" Times"<<endl;
-        cout << "Digit 6: "<<num6<<" Times"<<endl;
-        cout << "Digit 7: "<<num7<<" Times"<<endl;
-        cout << "Digit 8: "<<num8<<" Times"<<endl;
-        cout << "Digit 9: "<<num9<<" Times"<<endl;
+		cout << "0: "<<num0<<endl;
+		cout << "1: "<<num1<<endl;
+		cout << "2: "<<num2<<endl;
+		cout << "3: "<<num3<<endl;
+		cout << "4: "<<num4<<endl;
+		cout << "5: "<<num5<<endl;
+		cout << "6: "<<num6<<endl;
+		cout << "7: "<<num7<<endl;
+		cout << "8: "<<num8<<endl;
+		cout << "9: "<<num9<<endl;
 
 
 
 
+		cout << "Try another? [Y/n]: ";
+		cin >> choice;
 
 
-
-        cout << "Do you want to continue? [Y/n]: ";
-        cin >> choice;
-
-
-        
-    }while(choice == 'y' || choice == 'Y');
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
+	}while(choice == 'Y' || choice == 'y');
+	return 0;
 }
-
-
-
