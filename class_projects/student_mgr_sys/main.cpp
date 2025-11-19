@@ -48,7 +48,7 @@ int main(){
         
         
     }while(repeat == '1' || repeat == '1');
-    cout << "Program Ended!";
+    cout << "Program Ended!\n";
     
     return 0;
 }
@@ -72,6 +72,7 @@ void newStudents(string name, float marks)
     cout << "Added Successfully!"<<endl;
     
 }
+
 
 
 void viewStudent()
