@@ -18,13 +18,17 @@ int main(){
         switch (menu())
         {
             case '1':
-                    
+                char again;
+                do{    
                     cin.ignore();
                     cout << "Enter a name: ";
                     getline(cin, name);
                     cout << "Enter a mark: ";
                     cin >> marks;
                     newStudents(name, marks);
+                    cout << "Enter new student? [y/n]: ";
+                    cin >> again;
+                }while(again == 'y' || again == 'Y');
                 
                 break;
             case '2':
@@ -37,13 +41,14 @@ int main(){
                 break;
             
         }
-        
-        cout << "Enter another? [Y/n]: ";
+
+        cout << "\n[1] Menu\n[2] Exit"<<endl;
+        cout << "Enter your choice: ";
         cin >> repeat;
         
         
-    }while(repeat == 'Y' || repeat == 'y');
-    
+    }while(repeat == '1' || repeat == '1');
+    cout << "Program Ended!";
     
     return 0;
 }
@@ -69,17 +74,18 @@ void newStudents(string name, float marks)
 }
 
 
-void viewStudent(){
-        ifstream studentFile("Studentlog.txt");
-        
-        if(studentFile){
-            string line;
-            while(getline(studentFile, line)){
-                cout << line <<endl;
-            }
-            studentFile.close();   
-
+void viewStudent()
+{
+    ifstream studentFile("Studentlog.txt");
+    
+    if(studentFile){
+        string line;
+        while(getline(studentFile, line)){
+            cout << line <<endl;
         }
+        studentFile.close();   
+
+    }
 }
 
 
@@ -96,4 +102,3 @@ char menu(){
     return choice;
 
 }
-
