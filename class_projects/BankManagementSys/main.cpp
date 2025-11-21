@@ -3,6 +3,7 @@
 
 using namespace std;
 
+double getBalance(string userId);
 void getAccount(string userId, string &accID, string &accPIN);
 char authenticatorMenu();
 void createAccount(string userId, string pin, double balance );
@@ -12,11 +13,11 @@ void inquireBal(double balance);
 char menu();
 
 int main(){
-    
+    double balance;
     char r;
     int attempts = 2;    
-    double balance = 0;
     char cont;
+
     do{   
         char choice = authenticatorMenu();
         if(choice == '1'){
@@ -29,10 +30,11 @@ int main(){
                 cout << "Enter PINCODE: ";
                 cin >> pincode;
                 getAccount(userID,ID,PIN);
-                cout << ID, PIN;
+                balance = getBalance(userID);
+            
 
                 
-                if( userID == ID || pincode == PIN ){
+                if( userID == ID && pincode == PIN ){
                     do{
                         char choice = menu();
                         double amount;
@@ -66,7 +68,7 @@ int main(){
                             break;
 
                         case '3':
-                            
+                    
                             cout <<"Your Balance is: " <<balance<<endl;
                             break;
                             
@@ -119,14 +121,10 @@ int main(){
                 }
             }    
         }
-        cout << "Back to Login Page? ";
+        cout << "Back to Login Page? [Y/n]: ";
         cin >> cont;
     }while(cont == 'y' || cont == 'Y');
     cout << "Thank you for using our bank!";
-    
-    
-    
-    
     
     return 0;
 }
@@ -135,22 +133,11 @@ int main(){
 
 
 
-double depositMoney(double amount, double balance){
-    return balance + amount;    
-}
-
 
 
 
 double withdrawMoney(double amount, double balance){
     return balance - amount;
-
-}
-
-
-
-void inquireBal(double balance){
-    cout << "Your balance is: "<<balance<<endl;
 
 }
 
@@ -199,9 +186,9 @@ void createAccount(string userId, string pin, double balance){
         cout << "Error opening file!";
     }
     
-    studentFile <<"ID: "<<userId<<endl;
-    studentFile <<"PIN: " << pin<<endl;
-    studentFile <<"BALANCE: " << balance<<endl;
+    studentFile <<"ID : "<<userId<<endl;
+    studentFile <<"PIN : " << pin<<endl;
+    studentFile <<"BALANCE : " << balance<<endl;
     studentFile <<endl;
     
     studentFile.close();
@@ -221,11 +208,48 @@ void getAccount(string userId, string &accID, string &accPIN){
     string word;
     
     studentFile >> word >> word >>accID;
-    for(int i = 1; i <= 1; i++){
+    for(int i = 0; i <= 1; i++){
         studentFile >> word >> word >> accPIN;
     }
-    cout << accID<<accPIN;
+   
         
     studentFile.close(); 
+    
+}
 
+
+
+
+
+
+
+
+
+
+
+double getBalance(string userId){
+    string ext = ".txt";
+    string filename = userId + ext; 
+    fstream studentFile(filename, ios :: in);
+    
+    if(!studentFile){
+        cout << "Error opening file!";
+    }
+    string word;
+    double balance;
+    
+    for(int i = 1; i <= 3; i++){
+        studentFile >> word >> word >> balance;
+    }
+    
+        
+    studentFile.close(); 
+    
+    return balance;
+
+
+}
+
+double depositMoney(double amount, double balance){
+    return balance + amount;    
 }
