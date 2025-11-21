@@ -1,19 +1,24 @@
 #include <iostream>
 #include <fstream>
-
+#include <limits>
 using namespace std;
 
-double getBalance(string userId);
-void getAccount(string userId, string &accID, string &accPIN);
+double balance;
+
+
+
+double getBalance(int userId);
+void getAccount(int userId, int &accID, int &accPIN);
 char authenticatorMenu();
-void createAccount(string userId, string pin, double balance );
-double depositMoney(double amount, double balance);
-double withdrawMoney(double amount, double balance);
-void inquireBal(double balance);
+void createAccount(int userId, int pin, double balance );
+double depositMoney(double amount, int userId, int pin);
+double withdrawMoney(double amount, int userId, int pin);
 char menu();
+void clearInputBuffer();
+
+
 
 int main(){
-    double balance;
     char r;
     int attempts = 2;    
     char cont;
@@ -23,12 +28,14 @@ int main(){
         if(choice == '1'){
             
             do{
-                string ID, PIN;
-                string userID, pincode;
+                int ID, PIN;
+                int userID, pincode;
                 cout << "Enter ID number: ";
                 cin >> userID;
                 cout << "Enter PINCODE: ";
                 cin >> pincode;
+                    
+                
                 getAccount(userID,ID,PIN);
                 balance = getBalance(userID);
             
@@ -43,7 +50,8 @@ int main(){
                         case '1':
                                 cout << "Enter amount to deposit: ";
                                 cin >> amount;
-                                balance = depositMoney(amount, balance);
+                                balance = depositMoney(amount, userID, pincode);
+                                system("clear");
                                 cout << "Transanction Successful!"<<endl;
                                 cout << "Balance: "<<balance<<endl;
                                 
@@ -58,7 +66,8 @@ int main(){
                                         cout << "Balance: "<<balance<<endl;
                                     }
                                     else{
-                                        balance = withdrawMoney(amount, balance);
+                                        balance = withdrawMoney(amount, userID, pincode);
+                                        system("clear");
                                         cout << "Transanction Successful!"<<endl;
                                         cout << "Balance: "<<balance<<endl;
                                         break;
@@ -68,7 +77,7 @@ int main(){
                             break;
 
                         case '3':
-                    
+                            system("clear");
                             cout <<"Your Balance is: " <<balance<<endl;
                             break;
                             
@@ -80,9 +89,11 @@ int main(){
                         default:
                             break;
                         }
-                        cout << "Do you want to try again!: ";
+                        cout <<"========== BDO Bank =========="<<endl;
+                        cout << "[1] MENU\n[2] EXIT"<<endl;
+                        cout << "Enter your choice: ";
                         cin >> r;
-                    }while(r == 'y' || r == 'Y');
+                    }while(r == '1');
                     cout << "Thank you for using our bank!"<<endl;
                     return 0;
                 }
@@ -101,7 +112,7 @@ int main(){
             cout << "Account Locked!";
         }
         else if(choice == '2'){
-            string pin, cpin, userId;
+            int pin, cpin, userId;
             cout << "Enter your ID number: ";
             cin >> userId;
             while(true){
@@ -129,20 +140,6 @@ int main(){
     return 0;
 }
 
-
-
-
-
-
-
-
-double withdrawMoney(double amount, double balance){
-    return balance - amount;
-
-}
-
-
-
 char menu(){
     char choice;
 
@@ -156,36 +153,33 @@ char menu(){
         cin >> choice;
         
         return choice;
-        
-        
-    }   
+}   
     
 char authenticatorMenu(){
     char choice;
+    system("clear");
     cout << "========== BDO Bank =========="<<endl;
     cout << "[1] Login"<<endl;
     cout << "[2] Sign Up"<<endl;
     cout << "Enter your choice: ";
     cin >> choice;
     cout <<endl;
+    system("clear");
     return choice;
-
-
    
 }
 
 
-
-
-void createAccount(string userId, string pin, double balance){
+void createAccount(int userId, int pin, double balance){
     string ext = ".txt";
-    string filename = userId + ext; 
-    fstream studentFile(filename, ios::out);
+    string filename = to_string(userId) + ext; 
+    string filepath = "accountsDatabase/" + filename;
+    fstream studentFile(filepath, ios::out);
     
     if(!studentFile){
         cout << "Error opening file!";
     }
-    
+
     studentFile <<"ID : "<<userId<<endl;
     studentFile <<"PIN : " << pin<<endl;
     studentFile <<"BALANCE : " << balance<<endl;
@@ -197,10 +191,11 @@ void createAccount(string userId, string pin, double balance){
     
 }
 
-void getAccount(string userId, string &accID, string &accPIN){
+void getAccount(int userId, int &accID, int &accPIN){
     string ext = ".txt";
-    string filename = userId + ext; 
-    fstream studentFile(filename, ios :: in);
+    string filename = to_string(userId) + ext; 
+    string filepath = "accountsDatabase/" + filename;
+    fstream studentFile(filepath, ios :: in);
     
     if(!studentFile){
         cout << "Error opening file!";
@@ -208,29 +203,20 @@ void getAccount(string userId, string &accID, string &accPIN){
     string word;
     
     studentFile >> word >> word >>accID;
-    for(int i = 0; i <= 1; i++){
+    for(int i = 1; i <= 1; i++){
         studentFile >> word >> word >> accPIN;
     }
-   
         
     studentFile.close(); 
     
 }
 
 
-
-
-
-
-
-
-
-
-
-double getBalance(string userId){
+double getBalance(int userId){
     string ext = ".txt";
-    string filename = userId + ext; 
-    fstream studentFile(filename, ios :: in);
+    string filename = to_string(userId) + ext; 
+    string filepath = "accountsDatabase/" + filename;
+    fstream studentFile(filepath, ios :: in);
     
     if(!studentFile){
         cout << "Error opening file!";
@@ -241,15 +227,52 @@ double getBalance(string userId){
     for(int i = 1; i <= 3; i++){
         studentFile >> word >> word >> balance;
     }
-    
-        
+
     studentFile.close(); 
-    
     return balance;
-
-
 }
 
-double depositMoney(double amount, double balance){
-    return balance + amount;    
+double depositMoney(double amount, int userId, int pin){
+    string ext = ".txt";
+    string filename = to_string(userId) + ext; 
+    string filepath = "accountsDatabase/" + filename;
+    ofstream studentFile(filepath);
+    
+    if(!studentFile){
+        cout << "Error opening file!";
+    }
+    string word;
+    double newBalance = balance + amount;
+
+    studentFile <<"ID : "<<userId<<endl;
+    studentFile <<"PIN : " << pin<<endl;
+    studentFile << "BALANCE : " << newBalance;
+    
+    studentFile.close(); 
+    return newBalance;    
+     
 }
+
+
+double withdrawMoney(double amount, int userId, int pin){
+    string ext = ".txt";
+    string filename = to_string(userId) + ext; 
+    string filepath = "accountsDatabase/" + filename;
+    ofstream studentFile(filepath);
+    
+    if(!studentFile){
+        cout << "Error opening file!";
+    }
+    string word;
+    double newBalance = balance - amount;
+
+    studentFile <<"ID : "<<userId<<endl;
+    studentFile <<"PIN : " << pin<<endl;
+    studentFile << "BALANCE : " << newBalance;
+    
+    studentFile.close(); 
+    return newBalance;    
+    
+    
+}
+
