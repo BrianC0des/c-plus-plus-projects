@@ -1,6 +1,7 @@
-#include <fstream>
+// #include <fstream>
 #include <iostream>
-#include <limits>
+#include <string>
+// #include <limits>
 using namespace std;
 
 // Bryan P. Saavedra
@@ -27,22 +28,37 @@ void showBalance();
 int main() {
   int userID, userPIN;
   signUpPage(userID, userPIN);
-  cout << "userID: " << userID << endl << "userPIN: " << userPIN;
+  cout << userID << userPIN;
 
   return 0;
 }
 
 int signUpPage(int &newID, int &newPIN) {
   int cPIN, attempts = 3;
-  cout << "========= SIGN UP! ========" << endl;
-  cout << "Enter Your ID: ";
-  cin >> newID;
+  int idLen = to_string(newID).size();
+  int pinLen = to_string(newPIN).size();
+
   do {
     attempts--;
-    cout << "Enter your PINCODE: ";
-    cin >> newPIN;
-    cout << "Confirm your PINCODE: ";
-    cin >> cPIN;
+    do {
+      cout << "========= SIGN UP! ========" << endl;
+      cout << "Enter Your ID: ";
+      cin >> newID;
+      cout << '\n';
+      cout << "Enter your PINCODE: ";
+      cin >> newPIN;
+      cout << "Confirm your PINCODE: ";
+      cin >> cPIN;
+
+      if (idLen > 9) {
+        cout << "ID Number must not exceed 9 integers!" << endl;
+        cout << "Please try again!" << endl;
+      }
+      if (pinLen > 6)
+        cout << "ID Number must not exceed 9 integers!" << endl;
+      cout << "Please try again!" << endl;
+
+    } while (idLen > 9 && pinLen > 6);
 
     if (newPIN != cPIN) {
       system("clear");
@@ -57,8 +73,7 @@ int signUpPage(int &newID, int &newPIN) {
 
   } while (newPIN != cPIN && attempts != 0);
   cout << "You ran out of attempts! Please Try Again Later!";
-  newID = 0, newPIN = 0;
-  return 0;
+  return newID = 0, newPIN = 0;
 }
 
 void loginPage() {}
