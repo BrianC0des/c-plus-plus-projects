@@ -11,7 +11,6 @@ double balance;
 
 // my functions
 
-void withdrawReceipt();
 double getBalance(int userId);
 void getAccount(int userId, int &accID, int &accPIN);
 int authenticatorMenu();

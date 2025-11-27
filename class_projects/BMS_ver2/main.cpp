@@ -1,6 +1,5 @@
 // #include <fstream>
 #include <iostream>
-#include <string>
 // #include <limits>
 using namespace std;
 
@@ -35,30 +34,15 @@ int main() {
 
 int signUpPage(int &newID, int &newPIN) {
   int cPIN, attempts = 3;
-  int idLen = to_string(newID).size();
-  int pinLen = to_string(newPIN).size();
-
+  cout << "========= SIGN UP! ========" << endl;
+  cout << "Enter Your ID: ";
+  cin >> newID;
   do {
     attempts--;
-    do {
-      cout << "========= SIGN UP! ========" << endl;
-      cout << "Enter Your ID: ";
-      cin >> newID;
-      cout << '\n';
-      cout << "Enter your PINCODE: ";
-      cin >> newPIN;
-      cout << "Confirm your PINCODE: ";
-      cin >> cPIN;
-
-      if (idLen > 9) {
-        cout << "ID Number must not exceed 9 integers!" << endl;
-        cout << "Please try again!" << endl;
-      }
-      if (pinLen > 6)
-        cout << "ID Number must not exceed 9 integers!" << endl;
-      cout << "Please try again!" << endl;
-
-    } while (idLen > 9 && pinLen > 6);
+    cout << "Enter your PINCODE: ";
+    cin >> newPIN;
+    cout << "Confirm your PINCODE: ";
+    cin >> cPIN;
 
     if (newPIN != cPIN) {
       system("clear");
@@ -76,9 +60,9 @@ int signUpPage(int &newID, int &newPIN) {
   return newID = 0, newPIN = 0;
 }
 
-void loginPage() {}
+void loginPage();
 
-void menuPage() {}
+void menuPage();
 
 void createAccount();
 int getAccount();
@@ -90,3 +74,4 @@ double getBalance();
 void depositReceipt();
 void withdrawReceipt();
 void showBalance();
+
