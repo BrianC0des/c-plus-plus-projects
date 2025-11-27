@@ -1,6 +1,7 @@
 // #include <fstream>
+#include <cstdlib>
 #include <iostream>
-// #include <limits>
+#include <limits>
 using namespace std;
 
 // Bryan P. Saavedra
@@ -23,11 +24,12 @@ double getBalance();
 void depositReceipt();
 void withdrawReceipt();
 void showBalance();
+void clearInputBuffer();
 
 int main() {
   int userID, userPIN;
   signUpPage(userID, userPIN);
-  cout << userID << userPIN;
+  loginPage();
 
   return 0;
 }
@@ -60,7 +62,17 @@ int signUpPage(int &newID, int &newPIN) {
   return newID = 0, newPIN = 0;
 }
 
-void loginPage();
+void loginPage() {
+  int userID, userPIN;
+  cout << "========= Welcome to BankDEV ========" << endl;
+  cout << "Enter your ID: ";
+  while (!(cin >> userID)) {
+    cout << "Invalid Input! Enter a number: " << endl;
+    clearInputBuffer();
+  }
+  cout << "Enter your PINCODE: ";
+  cin >> userPIN;
+}
 
 void menuPage();
 
@@ -75,3 +87,8 @@ void depositReceipt();
 void withdrawReceipt();
 void showBalance();
 
+void clearInputBuffer() {
+  cin.get();
+  cin.clear();
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
