@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <limits>
+#include <string>
 using namespace std;
 
 // Bryan P. Saavedra
@@ -25,6 +26,7 @@ void depositReceipt();
 void withdrawReceipt();
 void showBalance();
 void clearInputBuffer();
+void smartInput(string userInput);
 
 int main() {
   int userID, userPIN;
@@ -66,10 +68,6 @@ void loginPage() {
   int userID, userPIN;
   cout << "========= Welcome to BankDEV ========" << endl;
   cout << "Enter your ID: ";
-  while (!(cin >> userID)) {
-    cout << "Invalid Input! Enter a number: " << endl;
-    clearInputBuffer();
-  }
   cout << "Enter your PINCODE: ";
   cin >> userPIN;
 }
@@ -91,4 +89,12 @@ void clearInputBuffer() {
   cin.get();
   cin.clear();
   cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+void smartInput(string &userInput) {
+  cin >> userInput;
+  while (!(cin >> userInput)) {
+    cout << "Invalid Input! Enter a number: " << endl;
+    clearInputBuffer();
+  }
 }
