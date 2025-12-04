@@ -98,3 +98,6 @@ void smartInput(string &userInput) {
     clearInputBuffer();
   }
 }
+
+
+
