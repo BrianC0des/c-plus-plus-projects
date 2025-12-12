@@ -1,12 +1,14 @@
 #include <fstream>
 #include <iostream>
 using namespace std;
-
-
-
-void newStudents(string name, float marks);
+void newStudents(string name);
 void viewStudent();
 char menu();
+
+
+double getMarks();
+
+
 
 int main(){
     char repeat;
@@ -22,10 +24,8 @@ int main(){
                 do{    
                     cin.ignore();
                     cout << "Enter a name: ";
-                    getline(cin, name);
-                    cout << "Enter a mark: ";
-                    cin >> marks;
-                    newStudents(name, marks);
+                    getline(cin, name); 
+                    newStudents(name);
                     cout << "Enter new student? [y/n]: ";
                     cin >> again;
                 }while(again == 'y' || again == 'Y');
@@ -55,22 +55,31 @@ int main(){
 
 
 
-void newStudents(string name, float marks)
+void newStudents(string name)
 {
+  double marks, numOfMarks;
+  fstream studentFile("Studentlog.txt", ios::in | ios::app);
 
-    fstream studentFile("Studentlog.txt", ios::in | ios::app);
-    
-    if(!studentFile){
-        cout << "Error opening file!";
-    }
 
-    studentFile << "Name: "<<name<<endl;
-    studentFile << "Mark: "<<marks;
-    studentFile <<endl<<endl;
-    
-    studentFile.close();
-    cout << "Added Successfully!"<<endl;
-    
+  if(!studentFile){
+      cout << "Error opening file!";
+  }
+   
+  studentFile << "Name : "<<name<<endl; 
+  cout << "How many marks: ";
+  cin >> numOfMarks;
+  for(int i = 1; i <= numOfMarks; i++){
+      cout << "Enter Mark "<<i<<": ";
+      cin >> marks;
+      studentFile << "Mark "<<i<<" : "<<marks<<endl;
+  }
+
+  
+  studentFile <<endl<<endl;
+  
+  studentFile.close();
+  cout << "Added Successfully!"<<endl;
+
 }
 
 
@@ -103,3 +112,6 @@ char menu(){
     return choice;
 
 }
+
+
+

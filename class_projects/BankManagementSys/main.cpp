@@ -64,7 +64,7 @@ int main() {
               prevBal = balance;
               balance = depositMoney(amount, userID, pincode);
               system("clear");
-              cout << "Transanction Succes\sful!" << endl;
+              cout << "Transanction Successful!" << endl;
               cout << "========= Deposit Receipt =========" << endl;
               cout << "Initial balance: " << prevBal << endl;
               cout << "Amount Deposited: " << amount << endl;
