@@ -1,0 +1,26 @@
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+
+  
+    int freq[] = {0};
+    string word; 
+    cout << "Enter word: ";
+    
+  <M-C-D-Space>  char c[26];
+   for(int i : c){
+      if(tolower(word[i]) >= 'a' || tolower(word[i]) <= 'z'){
+         freq[i]++;
+     }
+  
+   
+
+
+
+     return 0;
+}
+
+

@@ -5,7 +5,7 @@ long long fibonacci(long long n)
 {
     if (n <= 1)
         return n;
-    long long a = 0, b = 1, c;
+    int a = 0, b = 1, c;
     for (long long i = 2; i <= n; i++)
     {
         c = a + b;
